@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Enrolled Courses</title>
+    <link rel="icon" href="/images/my-icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add background image and style */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100vh;
+            font-family: 'Inria Serif', serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Icon styling */
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 1200px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Dashboard container */
+        .dashboard-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            max-width: 1200px; /* Limit the width of the dashboard */
+        }
+
+        .dashboard-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            width: calc(25% - 40px); /* Set to 25% width minus margins */
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #333;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .dashboard-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .dashboard-card h2 {
+            margin: 0 0 10px;
+            font-size: 24px;
+            font-weight: 700; /* Bold title for emphasis */
+        }
+
+        .dashboard-card p {
+            font-size: 16px;
+            font-weight: 400; /* Regular weight for description */
+        }
+
+        .enroll-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .enroll-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .enroll-link a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dashboard-card {
+                width: 90%; /* Adjust card width on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Icon at the top left -->
+<div class="icon">
+    <img src="icon.png" alt="Logo representing skills">
+</div>
+
+<!-- Header -->
+<div class="header">
+    <h1>My Enrolled Courses</h1>
+</div>
+
+<!-- Enrolled Courses -->
+<div class="dashboard-container">
+    <!-- Course Cards will be dynamically generated here -->
+</div>
+
+<!-- Link to Enroll New Courses -->
+<div class="enroll-link">
+    <a href="#" id="myLink">Enroll New Course</a>
+</div>
+
+<script>
+    // Function to get query parameter value by name
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Retrieve the email from the URL
+    const email = getQueryParam('email');
+    console.log("email:", email);
+
+    // Update the enroll link to include the email in the URL
+    document.getElementById("myLink").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default action
+        if (email) {
+            // Redirect to the enroll page with email as a query parameter
+            window.location.href = `enroll.html?email=${encodeURIComponent(email)}`;
+        } else {
+            console.log("Email not available.");
+        }
+    });
+
+    // Function to fetch the enrolled courses
+    async function fetchCourses() {
+        try {
+            const response = await fetch('http://localhost:3001/get-courses', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+            
+            if (data.courses) {
+                renderCourses(data.courses); // Call a function to render the courses
+            } else {
+                console.log("No courses found");
+            }
+        } catch (error) {
+            console.error('Error fetching courses:', error);
+        }
+    }
+
+    // Function to render the courses dynamically
+    function renderCourses(courses) {
+        const dashboardContainer = document.querySelector('.dashboard-container');
+        dashboardContainer.innerHTML = ''; // Clear the container before adding new courses
+        
+        courses.forEach(course => {
+            const courseCard = document.createElement('div');
+            courseCard.classList.add('dashboard-card');
+
+            courseCard.innerHTML = `
+                <img src="${course.image}" alt="${course.name}" />
+                <h2>${course.name}</h2>
+                <p>${course.description}</p>
+            `;
+
+            dashboardContainer.appendChild(courseCard);
+        });
+    }
+
+    // Call fetchCourses function when the page loads
+    fetchCourses();
+</script>
+
+</body>
+</html>

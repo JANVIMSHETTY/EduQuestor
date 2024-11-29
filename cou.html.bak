@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Courses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Background and page setup */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Inria Serif', serif;
+            color: #333;
+        }
+
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+		
+		
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 4vw; /* Increased size */
+            color: black; /* Changed color to black */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+            font-weight: 700; /* Bold font weight */
+            letter-spacing: 1px; /* Increased spacing between letters */
+            text-transform: uppercase; /* Uppercase letters */
+            transition: transform 0.3s ease; /* Smooth transform on hover */
+        }
+
+        .header h1:hover {
+            transform: scale(1.1); /* Slightly enlarge on hover */
+            color: #333; /* Change color on hover to dark gray */
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2vw;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #0056b3;
+        }
+
+        /* Course cards */
+        .course-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .course-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            width: calc(25% - 20px);
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .course-card h3 {
+            font-size: 1.8vw;
+            color: #333;
+            margin: 0 0 10px 0;
+            text-align: center; /* Center-align title */
+        }
+
+        .course-card p {
+            font-size: 1.1vw;
+            color: #666;
+            text-align: center; /* Center-align description */
+            margin-bottom: 10px;
+        }
+
+        .course-card a {
+            font-size: 1.1vw;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block; /* Center-align button */
+            text-align: center; /* Center-align button */
+            margin-bottom: 10px; /* Space above button */
+        }
+
+        .course-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Call-to-action buttons */
+        .enroll-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%; /* Full width for button */
+        }
+
+        .enroll-button:hover {
+            background-color: #218838;
+        }
+
+        /* Footer links */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007BFF;
+            margin: 0 15px;
+            font-size: 1.2vw;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .course-card {
+                width: calc(50% - 20px); /* Two cards per row on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .course-card {
+                width: 100%; /* One card per row on extra small screens */
+            }
+        }
+		
+		/* New styling for the image container */
+        .image-container {
+            display: flex; /* Use flexbox to align images in a row */
+            justify-content: left; /* Center images */
+            margin-top: 50px; /* Space above the image container */
+            width: 100%; /* Full width for the container */
+        }
+
+        .image-container div {
+            text-align: center; /* Center align text under images */
+            margin: 0 35px; /* Add margin between image blocks */
+        }
+
+        .image-container img {
+            width: 50px; /* Adjust the size of the images */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0; /* No margin for images */
+        }
+		
+		.explore-link {
+            display: block; /* Make it a block element */
+            font-size: 18px; /* Adjust font size to a smaller size */
+            margin-top: 5px; /* Space between texts */
+            color: black; /* Change the color to black */
+            text-decoration: underline; /* Underline for emphasis */
+            cursor: pointer; /* Change cursor on hover */
+        }
+
+        .explore-link:hover {
+            color: red; /* Change color to red on hover */
+        }
+		
+		.enroll-button {
+    display: inline-block;
+    padding: 10px 5px;
+    background-color: black;
+    color: white;
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px;
+    font-size: 1.1vw;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    width: 100%; /* Full width for button */
+}
+
+.enroll-button:hover {
+    background-color: green;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Logo in the top-left corner -->
+    <div class="icon">
+        <img src="icon.png" alt="Logo">
+    </div>
+
+    <div class="container">
+        <!-- Page header -->
+        <div class="header">
+            <h1>Explore Our Courses</h1>
+        </div>
+
+        
+
+        <!-- Course listing -->
+        <div class="course-list">
+            <!-- Course 1 -->
+            <div class="course-card">
+                <img src="digmar.png" alt="Digital Marketing Course">
+                <h3>Digital Marketing</h3>
+                <p>Learn strategies to grow your business online.</p>
+                <a href="endigmar.html" class="enroll-button">Enroll</a>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="course-card">
+                <img src="wt.png" alt="Web Development Course">
+                <h3>Web Development</h3>
+                <p>Build modern websites with HTML, CSS, and JavaScript.</p>
+                <a href="enwt.html" class="enroll-button">Enroll</a>
+
+            </div>
+
+            <!-- Course 3 -->
+            <div class="course-card">
+                <img src="ds.png" alt="Data Science Course">
+                <h3>Data Science</h3>
+                <p>Analyze data and make informed business decisions.</p>
+                <a href="ends.html" class="enroll-button">Enroll</a>
+                
+            </div>
+
+            <!-- Course 4 -->
+            <div class="course-card">
+                <img src="gd.png" alt="Graphic Design Course">
+                <h3>Graphic Design</h3>
+                <p>Master the fundamentals of visual design.</p>
+                <a href="engd.html" class="enroll-button">Enroll</a>
+
+            </div>
+
+            
+
+            
+
+            <!-- Course 7 -->
+            <div class="course-card">
+                <img src="aiml.png" alt="AI and Machine Learning Course">
+                <h3>AI and Machine Learning</h3>
+                <p>Discover the world of artificial intelligence.</p>
+                <a href="enaiml.html" class="enroll-button">Enroll</a>
+
+            </div>
+
+            <!-- Course 8 -->
+            <div class="course-card">
+                <img src="cs.png" alt="Cybersecurity Course">
+                <h3>Cybersecurity</h3>
+                <p>Learn to protect data and networks from cyber threats.</p>
+                <a href="encs.html" class="enroll-button">Enroll</a>
+
+            </div>
+
+            
+
+        
+
+</body>
+</html>

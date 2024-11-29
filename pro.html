@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Student Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        /* Logo styling - fixed outside the profile card */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 90px;
+            height: 90px;
+            z-index: 10;
+        }
+
+        .profile-container {
+            width: 800px;
+            height: 650px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 5px solid #8A2BE2;
+            position: relative;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: 700;
+            color: #6e7cfc;
+        }
+
+        .profile-avatar img {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            border: 5px solid #FF6347;
+        }
+
+        .profile-info {
+            width: 100%;
+            max-width: 600px;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+            overflow-y: auto;
+            max-height: 250px;
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info p {
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .profile-info span {
+            font-weight: bold;
+            color: #8A2BE2;
+        }
+
+        .back-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #6e7cfc, #8A2BE2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #5a67d8;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+<!-- Logo placed outside the profile container -->
+<img src="icon.png" alt="Logo" class="logo"/>
+
+<div id="root"></div>
+
+<!-- Load React, ReactDOM, Babel, Axios -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+
+<script type="text/babel">
+    function Profile() {
+        const [user, setUser] = React.useState(null);
+
+        React.useEffect(() => {
+            const email = new URLSearchParams(window.location.search).get('email');
+            axios.get(`http://localhost:3001/getUserByEmail?email=${encodeURIComponent(email)}`)
+                .then(response => setUser(response.data))
+                .catch(error => console.error("Error fetching user data:", error));
+        }, []);
+
+        if (!user) return <p>Loading...</p>;
+
+        return (
+            <div className="profile-container">
+                <div className="profile-header">
+                    <h1>My Profile</h1>
+                </div>
+                <div className="profile-avatar">
+                    <img src="profile.png" alt="Profile Avatar"/>
+                </div>
+                <div className="profile-info">
+                    <p><span>Email:</span> {user.email}</p>
+                    <p><span>Username:</span> {user.username}</p>
+                    <p><span>Courses:</span> {user.courses.map(course => <div key={course}>{course}</div>)}</p>
+                </div>
+                <a href={`dashboard.html?email=${encodeURIComponent(user.email)}`} className="back-button">Back to Dashboard</a>
+            </div>
+        );
+    }
+
+    ReactDOM.render(<Profile />, document.getElementById('root'));
+</script>
+</body>
+</html>

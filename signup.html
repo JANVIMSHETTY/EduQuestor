@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign Up</title>
+    <link rel="icon" href="/images/my-icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add background image and style */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .form-container:hover {
+            transform: scale(1.05);
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            border: 1px solid #007BFF;
+        }
+
+        .submit-button {
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .explore-link {
+            display: block;
+            margin-top: 10px;
+            color: black;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        .explore-link:hover {
+            color: red;
+        }
+
+        .image-container {
+            max-width: 700px;
+            margin-right: 20px;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .top-middle-text {
+            font-family: 'Inria Serif', serif;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: black;
+            width: 100%;
+        }
+
+        .image-container1 {
+            max-width: 100px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .image-container1 img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="icon">
+        <img src="icon.png" alt="Logo representing skills">
+    </div>
+
+    <div class="top-middle-text">
+        <h1>MASTER NEW SKILLS<br>ANYTIME, ANYWHERE</h1>
+    </div>
+
+    <div class="image-container">
+        <img src="sign.png" alt="E-tutorials Image">
+    </div>
+
+    <div class="image-container1">
+        <img src="arrow.png" alt="E-tutorials Image">
+    </div>
+
+    <div class="form-container">
+        <h2>Create Your Account</h2>
+		<form id="signupForm" action="http://localhost:3001/signup" method="POST">
+
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+            <p class="error-message" id="error-message">Passwords do not match!</p>
+            <button type="submit" class="submit-button">Sign Up</button>
+        </form>
+        <a class="explore-link" href="login.html">Already have an account? Log in</a>
+    </div>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
+        const errorMessage = document.getElementById('error-message');
+
+        signupForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            if (password.value !== confirmPassword.value) {
+                errorMessage.style.display = 'block';
+                return;
+            } else {
+                errorMessage.style.display = 'none';
+            }
+
+            const formData = {
+                username: signupForm.username.value,
+                email: signupForm.email.value,
+                pw: signupForm.password.value
+            };
+
+            try {
+                const response = await fetch(signupForm.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    const url =`dashboard.html?email=${encodeURIComponent(formData.email)}` ;
+                    console.log(url);
+                    console.log(formData.email);
+                    alert("Signup successful!");
+                    window.location.href = url;
+                } else {
+				
+                    const result = await response.json();
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Email id already exists.");
+            }
+        });
+    </script>
+
+</body>
+</html>

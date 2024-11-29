@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>explore</title>
+    <link rel="icon" href="/images/my-icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add background image and style */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png'); /* Change the path to your image */
+            background-size: cover; /* Ensure the image covers the entire background */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Make the background fixed while scrolling */
+            background-repeat: no-repeat; /* Avoid tiling the background */
+            height: 100vh; /* Full viewport height */
+            display: flex; /* Use flexbox for centering */
+            flex-direction: column; /* Arrange children in a column */
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+        }
+
+        /* Icon styling */
+        .icon {
+            position: absolute; /* Use absolute positioning */
+            top: 10px; /* Position it 10px from the top */
+            left: 10px; /* Position it 10px from the left */
+        }
+
+        .icon img {
+            height: 50px; /* Adjust the size of the icon */
+            width: auto; /* Maintain aspect ratio */
+        }
+
+        /* Centering the text at the top middle */
+        .top-middle-text {
+            font-family: 'Inria Serif', serif; /* Use Inria Serif font */
+            position: absolute; /* Use absolute positioning */
+            top: 20px; /* Position it 20px from the top */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for the width of the element */
+            text-align: center; /* Center align text */
+            color: black; /* Text color */
+            width: 100%; /* Full width for centering */
+        }
+
+        /* Style for the text */
+        h1 {
+            font-size: 36px; /* Adjust font size */
+            font-weight: bold; /* Use bold weight */
+            margin: 0; /* Remove margin */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
+        }
+
+        /* Sign Up button styling */
+        .signup-button {
+            position: absolute; /* Use absolute positioning */
+            top: 20px; /* Position it 20px from the top */
+            right: 20px; /* Position it 20px from the right */
+            padding: 10px 20px; /* Add padding for the button */
+            background-color: #007BFF; /* Button color */
+            color: white; /* Text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Change cursor on hover */
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        }
+
+        .signup-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .positioned-image {
+            position: absolute; /* Use absolute positioning */
+            top: 45px; /* Adjust as needed */
+            left: 500px; /* Adjust as needed */
+            width: 500px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-top: 100px;
+        }
+
+        /* Left middle text styling */
+        .left-middle-text {
+            position: absolute; /* Use absolute positioning */
+            left: 20px; /* Position it 20px from the left */
+            top: 40%; /* Center vertically */
+            transform: translateY(-50%); /* Adjust for the height of the element */
+            text-align: left; /* Left align text */
+            color: black; /* Text color */
+        }
+
+        .left-middle-text h2 {
+            font-size: 30px; /* Adjust font size */
+            margin: 10; /* Remove margin */
+            text-shadow: none; /* Remove text shadow */
+        }
+
+        .left-middle-text h3 {
+            font-size: 20px; /* Adjust font size */
+            margin: 10; /* Remove margin */
+        }
+
+        .explore-link {
+            display: block; /* Make it a block element */
+            font-size: 18px; /* Adjust font size to a smaller size */
+            margin-top: 5px; /* Space between texts */
+            color: black; /* Change the color to black */
+            text-decoration: underline; /* Underline for emphasis */
+            cursor: pointer; /* Change cursor on hover */
+        }
+
+        .explore-link:hover {
+            color: red; /* Change color to red on hover */
+        }
+
+        /* New styling for the image container */
+        .image-container {
+            display: flex; /* Use flexbox to align images in a row */
+            justify-content: left; /* Center images */
+            margin-top: 350px; /* Space above the image container */
+            width: 100%; /* Full width for the container */
+        }
+
+        .image-container div {
+            text-align: center; /* Center align text under images */
+            margin: 0 35px; /* Add margin between image blocks */
+        }
+
+        .image-container img {
+            width: 50px; /* Adjust the size of the images */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0; /* No margin for images */
+        }
+		
+		/* Student Success Stories */
+        .success-stories {
+            position: absolute;
+            right: 5%;
+            top: 30%;
+            width: 30%; /* Adjust width as needed */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Optional box-shadow */
+            color: #333;
+            font-family: 'Inria Serif', serif;
+        }
+
+        .success-stories h3 {
+            font-size: 2vw;
+            margin-bottom: 10px;
+            color: #007BFF;
+        }
+
+        .success-stories p {
+            font-size: 1.2vw;
+            line-height: 1.5;
+            margin: 0;
+        }
+		
+		
+		 /* Ready to see what we offer? Section */
+        .offer-section {
+            position: absolute;
+            right: 5%;
+            top: 70%;
+            width: 30%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            color: #333;
+            font-family: 'Inria Serif', serif;
+        }
+
+        .offer-section h3 {
+            font-size: 2vw;
+            margin-bottom: 10px;
+            color: #28A745; /* Green color for the heading */
+        }
+
+        .offer-section a {
+            font-size: 1.5vw;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+			text-decoration: underline;
+        }
+
+        .offer-section a:hover {
+            text-decoration: underline;
+            color: red; /* Change color on hover */
+        }
+
+		
+		 /* Middle image styling */
+        .middle-image {
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+            width: 30%; /* Adjust size as needed */
+            height: auto;
+            
+            border-radius: 10px; /* Optional: Rounded corners */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Icon on the top left corner -->
+    <div class="icon">
+        <img src="icon.png" alt="Icon representing skills"> <!-- Ensure this path is correct -->
+    </div>
+
+    <!-- Text positioned at the top middle -->
+    <div class="top-middle-text">
+        <h1>MASTER NEW SKILLS<br>ANYTIME, ANYWHERE</h1>
+    </div>
+
+    
+
+    <!-- Left middle text -->
+    <div class="left-middle-text">
+        <h2>Explore Us</h2>
+        <h3>Key Features:<br><br>
+ • Diverse Course Offerings <br>
+• Expert Instructors <br>
+• Flexible Learning <br>
+• Interactive Materials <br>
+• Community Support</h3>
+    </div>
+
+    <!-- Image container with 4 images -->
+    <div class="image-container">
+        <div>
+            <img src="home.png" alt="Image 1"> <!-- Replace with your image path -->
+            <a class="explore-link" href="home.html">Home</a> <!-- Link under Image 1 -->
+        </div>
+        <div>
+            <img src="about.png" alt="Image 2"> <!-- Replace with your image path -->
+            <a class="explore-link" href="about.html">About Us</a> <!-- Link under Image 2 -->
+        </div>
+        <div>
+            <img src="contact.png" alt="Image 3"> <!-- Replace with your image path -->
+            <a class="explore-link" href="contact.html">Contact</a> <!-- Link under Image 3 -->
+        </div>
+        <div>
+            <img src="faqs.png" alt="Image 4"> <!-- Replace with your image path -->
+            <a class="explore-link" href="faqs.html">FAQs</a> <!-- Link under Image 4 -->
+        </div>
+    </div>
+
+    <!-- Sign Up button -->
+    <button class="signup-button">Sign Up</button>
+	
+	<div class="success-stories">
+        <h3>Student Success Stories</h3>
+        <p>“I transitioned into a new career after taking the Digital Marketing course...”<br><br> - Sarah K.</p>
+    </div>
+	
+	<!-- Ready to see what we offer? Courses section -->
+    <div class="offer-section">
+        <h3>Ready to see what we offer?</h3>
+        <a href="courses.html">Courses</a>
+    </div>
+	
+	<!-- Middle image -->
+    <img class="middle-image" src="explore.png" alt="Middle Image"> <!-- Replace with your image path -->
+
+</body>
+</html>

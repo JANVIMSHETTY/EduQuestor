@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Student Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Add gradient background */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6e7cfc, #8c6ff2);
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Icon styling */
+        .icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* Profile Container Styling */
+        .profile-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #333;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .profile-container:hover {
+            transform: scale(1.03);
+        }
+
+        /* Header Styling */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            font-size: 40px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .edit-button {
+            padding: 10px 20px;
+            background-color: #28A745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+        }
+
+        .edit-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Profile Content */
+        .profile-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Avatar Styling */
+        .profile-avatar img {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile Info Styling */
+        .profile-info {
+            width: 100%;
+            max-width: 600px;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        .profile-info p {
+            margin: 15px 0;
+        }
+
+        .profile-info span {
+            font-weight: bold;
+            color: #6e7cfc;
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- React root element -->
+    <div id="root"></div>
+
+    <!-- Load React and ReactDOM from CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load Babel to compile JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        // Function to get URL query parameter
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const email = getQueryParam('email');  // Get the email from the query string
+
+        // React component for the Profile Page
+        function Profile() {
+            return (
+                <div>
+                    {/* Icon */}
+                    <div className="icon">
+                        <img src="icon.png" alt="Logo representing skills" />
+                    </div>
+
+                    {/* Profile Container */}
+                    <div className="profile-container">
+                        <div className="profile-header">
+                            <h1>My Profile</h1>
+                            <button className="edit-button" onClick={() => alert('Edit profile functionality')}>Edit Profile</button>
+                        </div>
+
+                        {/* Profile Content */}
+                        <div className="profile-content">
+                            {/* Profile Avatar */}
+                            <div className="profile-avatar">
+                                <img src="profile.jpg" alt="Profile Avatar" />
+                            </div>
+
+                            {/* Profile Information */}
+                            <div className="profile-info">
+                                <p><span>Email:</span> {email}</p>
+                                <p><span>Name:</span> John Doe</p>
+                                <p><span>Username:</span> johndoe123</p>
+                                <p><span>Joined:</span> January 2024</p>
+                                <p><span>Bio:</span> A passionate learner and developer, always eager to explore new technologies.</p>
+                            </div>
+
+                            {/* Back Button */}
+                            <a href="dashboard.html?email=" className="back-button">Back to Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the Profile component to the root element
+        ReactDOM.render(<Profile />, document.getElementById('root'));
+    </script>
+</body>
+</html>

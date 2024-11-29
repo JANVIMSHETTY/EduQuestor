@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Enrolled Courses</title>
+    <link rel="icon" href="/images/my-icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add background image and style */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100vh;
+            font-family: 'Inria Serif', serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+
+
+        .course-section.visible {
+            display: block; /* Show only the visible courses */
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 1200px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Enroll New Course Link Styling */
+        .enroll-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .enroll-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .enroll-link a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Course Section Styling */
+        .course-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            text-align: left;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .course-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .course-section p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- React root element -->
+<div id="root"></div>
+
+<!-- Load React and ReactDOM from CDN -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" crossorigin></script>
+
+<!-- Load Babel to compile JSX -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+    // Hardcoded course descriptions
+    const courseDescriptions = {
+        "digital-marketing": "Learn the fundamentals of digital marketing, including SEO, social media marketing, and more.",
+        "web-development": "Covering both front-end and back-end development, including HTML, CSS, JavaScript, and server-side technologies.",
+        "data-science": "An introduction to data science concepts, including data analysis, visualization, and machine learning.",
+        "graphic-design": "Learn the principles of graphic design, from typography to image manipulation and layout design."
+    };
+
+    // EnrolledCourses Component
+    function EnrolledCourses() {
+        const [user, setUser] = React.useState(null);
+
+        // Get the email from the URL query params
+        const email = new URLSearchParams(window.location.search).get('email');
+
+        React.useEffect(() => {
+            if (email) {
+                // Fetch user data based on email
+                axios.get('http://localhost:3001/getUserByEmail', { params: { email } })
+                    .then(response => {
+                        console.log('Fetched user data:', response.data);
+                        setUser(response.data);
+                    })
+                    .catch(err => {
+                        console.error('Error fetching user data', err);
+                    });
+            }
+        }, [email]);
+
+        if (!user) {
+            return <div>Loading...</div>;
+        }
+
+        // Check if the user has enrolled courses
+        //if (!user.courses || user.courses.length === 0) {
+          //  return <div>No courses enrolled.</div>;
+        //}
+
+        return (
+            <div>
+                <div className="icon">
+                    <img src="icon.png" alt="Logo representing skills"/>
+                </div>
+                <div className="header">
+                    <h1>Enrolled Courses</h1>
+                </div>
+
+                <div className="content">
+                    {
+                        !user.courses || user.courses.length === 0 ? (
+                            <div>
+                                <h1>NO COURSES ENROLLED.</h1>
+                                </div> // Display if no courses or array is missing
+                        ) : (
+                            user.courses.map((courseName, index) => {
+                                const description = courseDescriptions[courseName] || "No description available for this course.";
+                                return (
+                                    <section key={index} className="course-section">
+                                        <h2>{courseName.replace(/-/g, ' ').toUpperCase()} </h2> {/* Display course name */}
+                                        <p>{description}</p> {/* Display course description */}
+                                    </section>
+                                );
+                            })
+                        )
+                    }
+
+                </div>
+
+                <div className="enroll-link">
+                    <a href={`all.html?email=${encodeURIComponent(email)}`} id="myLink">Enroll New Course</a>
+                </div>
+
+            </div>
+        );
+    }
+
+    // Render the EnrolledCourses component
+    ReactDOM.render(<EnrolledCourses/>, document.getElementById('root'));
+</script>
+
+</body>
+</html>

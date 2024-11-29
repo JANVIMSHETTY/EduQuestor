@@ -1,0 +1,182 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Student Dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            /* Add background image and style */
+            body {
+                margin: 0;
+                padding: 0;
+                background-image: url('plainbg.png');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                height: 100vh;
+                font-family: 'Inria Serif', serif;
+                color: #333;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .icon {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
+
+            .icon img {
+                height: 50px;
+                width: auto;
+            }
+
+            .header {
+                display: flex;
+                align-items: center;
+                padding: 20px;
+                margin-top: 10px;
+                background-color: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                width: 100%;
+            }
+
+            .header h1 {
+                flex: 1;
+                text-align: center;
+                margin: 0;
+                font-size: 36px;
+                color: black;
+            }
+
+            .logout-button {
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            .logout-button:hover {
+                background-color: #0056b3;
+                transform: translateY(-2px);
+            }
+
+            .dashboard-container {
+                display: flex;
+                justify-content: space-around;
+                padding: 50px 20px;
+                flex-wrap: wrap;
+                width: 100%;
+                max-width: 1200px;
+            }
+
+            .dashboard-card {
+                border-radius: 15px;
+                width: 300px;
+                padding: 20px;
+                margin: 20px;
+                text-align: center;
+                transition: transform 0.3s, box-shadow 0.3s;
+                color: #fff;
+                position: relative;
+                display: block;
+            }
+
+            .card-courses { background-color: #007BFF; }
+            .card-profile { background-color: #FFC107; }
+
+            .dashboard-card img {
+                width: 80px;
+                height: auto;
+                margin-bottom: 15px;
+            }
+
+            .dashboard-card h2 {
+                margin: 0 0 10px;
+                font-size: 24px;
+            }
+
+            .dashboard-card p {
+                font-size: 16px;
+            }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- React root element -->
+        <div id="root"></div>
+
+        <!-- Load React and ReactDOM from CDN -->
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+        <!-- Load Babel to compile JSX -->
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        <script type="text/babel">
+            function getQueryParam(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            function handleLogout() {
+                console.log("Logout button clicked");
+                window.location.href = 'login.html';
+            }
+
+
+            const email = getQueryParam('email');
+
+            // React component for the dashboard
+            function Dashboard() {
+                return (
+                    <div>
+                        {/* Icon and Welcome Text */}
+                        <div className="icon">
+                            <img src="icon.png" alt="Logo representing skills" />
+                        </div>
+
+                        {/* Welcome Header Section */}
+                        <div className="header">
+                            <h1>Welcome to Your Dashboard</h1>
+                            <a href="login.html" >Log Out</a>
+                        </div>
+
+        {/* Dashboard Cards */}
+        <div className="dashboard-container">
+            {/* Courses Card */}
+                            <a href={`encou.html?email=${encodeURIComponent(email)}`} className="dashboard-card card-courses">
+                                <img src="course.png" alt="Courses Icon" />
+                                <h2>My Courses</h2>
+                                <p>View and manage your enrolled courses.</p>
+                            </a>
+
+                            {/* Profile Card with Redirect */}
+                            <a href={`pro.html?email=${encodeURIComponent(email)}`} className="dashboard-card card-profile">
+                                <img src="profile.png" alt="Profile Icon" />
+                                <h2>My Profile</h2>
+                                <p>Update your personal information and preferences.</p>
+                            </a>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Render the Dashboard component to the root element
+            ReactDOM.render(<Dashboard />, document.getElementById('root'));
+        </script>
+    </body>
+    </html>

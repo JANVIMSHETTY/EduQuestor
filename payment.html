@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="icon" href="/images/my-icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styles for the page */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100vh;
+            font-family: 'Inria Serif', serif; /* Use your chosen font */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center content vertically */
+            position: relative; /* Ensure positioning for child elements */
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+        }
+
+        h1 {
+            color: #007BFF; /* Header color */
+            margin-bottom: 20px;
+        }
+
+        .inputGroup {
+            margin-bottom: 15px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: border-color 0.3s; /* Animation for input focus */
+        }
+
+        .input:focus {
+            border-color: #007BFF; /* Highlight border on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #28A745; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s; /* Animation for button hover */
+        }
+
+        .button:hover {
+            background-color: #218838; /* Darker shade on hover */
+        }
+
+        .loading {
+            display: none; /* Initially hidden */
+            margin-top: 15px;
+            font-size: 16px;
+            color: #007BFF; /* Loading message color */
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #28A745; /* Green color for success messages */
+        }
+
+        .error {
+            color: #FF0000; /* Red color for error messages */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Page</h1>
+        
+        <form id="paymentForm" action="http://localhost:3001/add-courses" method="POST">
+            <div class="inputGroup">
+                <label>Card Number:</label>
+                <input
+                    type="text"
+                    id="cardNumber"
+                    class="input"
+                    placeholder="Enter your card number"
+                    required
+                />
+            </div>
+            <div class="inputGroup">
+                <label>Card Holder Name:</label>
+                <input
+                    type="text"
+                    id="cardHolderName"
+                    class="input"
+                    placeholder="Enter the card holder's name"
+                    required
+                />
+            </div>
+            <div class="inputGroup">
+                <label>Expiry Date (MM/YY):</label>
+                <input
+                    type="text"
+                    id="expiryDate"
+                    class="input"
+                    placeholder="MM/YY"
+                    required
+                />
+            </div>
+            <div class="inputGroup">
+                <label>CVC:</label>
+                <input
+                    type="text"
+                    id="cvc"
+                    class="input"
+                    placeholder="Enter your CVC"
+                    required
+                />
+            </div>
+            <button type="submit" class="button">Pay Now</button>
+            <p id="paymentMessage" class="message"></p>
+            <p id="loadingMessage" class="loading">Processing payment...</p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent form submission
+
+            function getQueryParam(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardHolderName = document.getElementById('cardHolderName').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvc = document.getElementById('cvc').value;
+            const paymentMessage = document.getElementById('paymentMessage');
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            // Regular expressions for validation
+            const cardNumberPattern = /^\d{16}$/; // 16 digits
+            const cvcPattern = /^\d{3}$/; // 3 digits
+            const expiryDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY format
+
+            let isValid = true; // Flag to check if all validations pass
+            paymentMessage.textContent = ''; // Reset message
+            loadingMessage.style.display = 'none'; // Hide loading message
+
+            // Validate card number
+            if (!cardNumberPattern.test(cardNumber)) {
+                paymentMessage.textContent += 'Invalid card number. It must be 16 digits.\n';
+                isValid = false;
+            }
+
+            // Validate card holder name
+            if (cardHolderName.trim() === '') {
+                paymentMessage.textContent += 'Card holder name is required.\n';
+                isValid = false;
+            }
+
+            // Validate expiry date
+            if (!expiryDatePattern.test(expiryDate)) {
+                paymentMessage.textContent += 'Invalid expiry date. Use MM/YY format.\n';
+                isValid = false;
+            } else {
+                // Check if expiry date is in the past
+                const [month, year] = expiryDate.split('/');
+                const expiry = new Date(`20${year}`, month);
+                const now = new Date();
+                if (expiry < now) {
+                    paymentMessage.textContent += 'Card has expired.\n';
+                    isValid = false;
+                }
+            }
+
+            // Validate CVC
+            if (!cvcPattern.test(cvc)) {
+                paymentMessage.textContent += 'Invalid CVC. It must be 3 digits.\n';
+                isValid = false;
+            }
+
+            // If all validations pass
+            if (isValid) {
+                loadingMessage.style.display = 'block'; // Show loading message
+                
+                // Simulate a payment processing delay
+                setTimeout(() => {
+                    const email=getQueryParam('email');
+                    loadingMessage.style.display = 'none'; // Hide loading message
+                    alert('Payment Successful! Thank you for your enrollment.'); // Dialog box
+                    console.log(email);
+                    window.location.href = `dashboard.html?email=${encodeURIComponent(email)}`;
+
+                    // Extract course name from URL
+                    const courseName = getQueryParam('course');
+                    const emailId = getQueryParam('email');
+
+// Validate courseName and emailId
+                    if (courseName && emailId) {
+                        console.log('course: ' + courseName);
+                        console.log('emailId: ' + emailId);
+
+                        // Send course name to backend API
+                        fetch(document.getElementById('paymentForm').action, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                "email": emailId,
+                                "courses": [courseName] // Ensure courseName is properly wrapped as an array
+                            }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle success
+                            console.log('Course added successfully:', data);
+                            window.location.href = 'dashboard.html'; // Redirect to the dashboard page
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    } else {
+                        console.error('Invalid course or email ID.');
+                    }
+                }, 2000); // Simulated delay of 2 seconds
+            } else {
+                paymentMessage.style.color = '#FF0000'; // Red color for error
+            }
+        });
+    </script>
+</body>
+</html>

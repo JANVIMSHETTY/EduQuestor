@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Finance Management Course</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Background and page setup */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Inria Serif', serif;
+            color: #333;
+        }
+
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Slight transparency for elegance */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 3vw; /* Responsive font size */
+            color: #34495e; /* Elegant dark blue */
+            font-weight: 700; /* Bold font weight */
+            letter-spacing: 1px; /* Spacing between letters */
+            text-transform: uppercase; /* Uppercase letters */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Course details */
+        .course-details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px; /* More padding for spacing */
+            border-radius: 10px; /* Match border radius */
+            background: rgba(255, 255, 255, 0.85); /* White background with slight transparency */
+        }
+
+        .course-details img {
+            width: 40%; /* Adjusted size */
+            border-radius: 10px;
+            margin-right: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-info h2 {
+            font-size: 2.5vw;
+            color: #2980b9; /* New color for course title */
+            margin-bottom: 10px;
+        }
+
+        .course-info p {
+            font-size: 1.2vw;
+            color: #7f8c8d; /* Grey for text */
+            line-height: 1.5; /* Improved line height for readability */
+            margin-bottom: 15px;
+        }
+
+        /* Pricing, Rating, and Duration */
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .stat {
+            background-color: #e74c3c; /* Red color for stats */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enroll button */
+        .enroll-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #27ae60; /* Green for enroll button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            margin: 20px auto; /* Center align button */
+            width: 60%; /* Button width */
+        }
+
+        .enroll-button:hover {
+            background-color: #219150; /* Darker green on hover */
+        }
+
+        /* Learn More link */
+        .learn-more {
+            display: block;
+            font-size: 1.2vw; /* Responsive font size */
+            color: #2980b9; /* Blue for learn more link */
+            text-decoration: underline;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+            text-align: center; /* Center the link */
+        }
+
+        .learn-more:hover {
+            color: #1abc9c; /* Teal on hover */
+        }
+		
+		.explore-link {
+            display: block; /* Make it a block element */
+            font-size: 18px; /* Adjust font size to a smaller size */
+            margin-top: 5px; /* Space between texts */
+            color: black; /* Change the color to black */
+            text-decoration: underline; /* Underline for emphasis */
+            cursor: pointer; /* Change cursor on hover */
+        }
+
+        .explore-link:hover {
+            color: red; /* Change color to red on hover */
+        }
+
+        /* Image container styling */
+        .image-container {
+            display: flex; /* Use flexbox to align images in a row */
+            justify-content: center; /* Center images */
+            margin-top: 20px; /* Space above the image container */
+            width: 100%; /* Full width for the container */
+        }
+
+        .image-container div {
+            text-align: center; /* Center align text under images */
+            margin: 0 20px; /* Add margin between image blocks */
+        }
+
+        .image-container img {
+            width: 50px; /* Adjust the size of the images */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 5px; /* Space between image and link */
+        }
+
+        /* Footer links */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #2980b9; /* Matching footer link color */
+            margin: 0 15px;
+            font-size: 1.2vw;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #e74c3c; /* Red on hover */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Logo in the top-left corner -->
+    <div class="icon">
+        <img src="icon.png" alt="Logo">
+    </div>
+
+    <div class="container">
+        <!-- Page header -->
+        <div class="header">
+            <h1>Finance Management Course</h1>
+        </div>
+
+        <!-- Course details -->
+        <div class="course-details">
+            <img src="fm.jpg" alt="Finance Management Course">
+            <div class="course-info">
+                <h2>Course Description</h2>
+                <p>This course covers essential financial management principles, including budgeting, investing, and financial analysis to help you manage personal and business finances effectively.</p>
+                
+                <div class="course-stats">
+                    <div class="stat">Price: $199</div>
+                    <div class="stat">Rating: ★★★★☆</div>
+                    <div class="stat">Duration: 8 weeks</div>
+                </div>
+                <a class="learn-more" href="finance-management-details.html">Learn More</a> <!-- Learn More link -->
+
+                <button class="enroll-button">Enroll Now</button>
+            </div>
+        </div>
+
+        <!-- Image container with navigation links -->
+        <div class="image-container">
+            <div>
+                <img src="home.png" alt="Home"> <!-- Replace with your image path -->
+                <a class="explore-link" href="home.html">Home</a> <!-- Link under Image 1 -->
+            </div>
+            <div>
+                <img src="about.png" alt="About Us"> <!-- Replace with your image path -->
+                <a class="explore-link" href="about.html">About Us</a> <!-- Link under Image 2 -->
+            </div>
+            <div>
+                <img src="contact.png" alt="Contact"> <!-- Replace with your image path -->
+                <a class="explore-link" href="contact.html">Contact</a> <!-- Link under Image 3 -->
+            </div>
+            <div>
+                <img src="faqs.png" alt="FAQs"> <!-- Replace with your image path -->
+                <a class="explore-link" href="faqs.html">FAQs</a> <!-- Link under Image 4 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

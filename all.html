@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link rel="icon" href="/images/my-icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            font-family: 'Inria Serif', serif;
+            color: #333; /* Default text color */
+        }
+        .navbar {
+            background-color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .navbar img {
+            height: 50px;
+        }
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #ff4c4c; /* Highlight on hover */
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .course-section {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s; /* Add a scaling effect */
+        }
+        .course-section:hover {
+            transform: scale(1.02); /* Slightly scale up on hover */
+        }
+        .course-section h2 {
+            margin-top: 0;
+            color: #007BFF; /* Header color */
+        }
+        .course-info {
+            font-size: 14px;
+            color: #555;
+        }
+        .rating {
+            color: gold; /* Gold color for stars */
+        }
+        .pay-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .pay-button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align to the start */
+            }
+            .navbar a {
+                margin: 5px 0; /* Space between links */
+            }
+            .course-section img {
+                width: 100%; /* Full width images */
+                height: auto; /* Maintain aspect ratio */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <img src="icon.png" alt="Logo"> <!-- Add your logo image here -->
+    <div>
+        <a href="#digital-marketing">Digital Marketing</a>
+        <a href="#web-development">Web Development</a>
+        <a href="#data-science">Data Science</a>
+        <a href="#graphic-design">Graphic Design</a>
+        <a href="#cyber-security">Cyber Security</a>
+        <a href="#ai-ml">AI & ML</a>
+    </div>
+</div>
+
+<div class="content">
+    <!-- Digital Marketing Section -->
+    <section id="digital-marketing" class="course-section">
+        <h2>Digital Marketing</h2>
+        <p>Learn strategies to grow your business online.<br>
+            In this course, you will learn how to effectively promote your business through various
+            digital marketing strategies. This includes SEO, social media marketing, email marketing, and more!</p>
+        <img src="digmar.png" alt="Digital Marketing Course" style="width:10%; height:auto;">
+        <div class="course-info">
+            <span class="rating">★★★★☆</span> (4.5/5) <br>
+            Price: $199 <br>
+            Duration: 6 weeks
+        </div>
+        <h3>Syllabus</h3>
+        <ul>
+            <li>SEO Basics</li>
+            <li>Social Media Marketing</li>
+            <li>Email Campaigns</li>
+        </ul>
+        <a href="#" class="pay-button" onclick="payNow('digital-marketing')">Pay Now</a> <!-- Updated payment button -->
+    </section>
+
+    <!-- Web Development Section -->
+    <section id="web-development" class="course-section">
+        <h2>Web Development</h2>
+        <p>Build modern websites with HTML, CSS, and JavaScript.<br>
+            This course covers the fundamentals of web development. You will learn how to build
+            responsive and interactive websites using HTML, CSS, and JavaScript.</p>
+        <img src="wt.png" alt="Web Development Course" style="width:10%; height:auto;">
+        <div class="course-info">
+            <span class="rating">★★★★☆</span> (4.7/5) <br>
+            Price: $299 <br>
+            Duration: 8 weeks
+        </div>
+        <h3>Syllabus</h3>
+        <ul>
+            <li>HTML & CSS Fundamentals</li>
+            <li>JavaScript Basics</li>
+            <li>Responsive Design</li>
+        </ul>
+        <a href="#" class="pay-button" onclick="payNow('web-development')">Pay Now</a> <!-- Updated payment button -->
+    </section>
+
+    <!-- Data Science Section -->
+    <section id="data-science" class="course-section">
+        <h2>Data Science</h2>
+        <p>Analyze data and make informed business decisions.<br>
+            This course introduces the principles of data science, covering data analysis,
+            visualization, and machine learning techniques using Python.</p>
+        <img src="ds.png" alt="Data Science Course" style="width:10%; height:auto;">
+        <div class="course-info">
+            <span class="rating">★★★★★</span> (5/5) <br>
+            Price: $399 <br>
+            Duration: 10 weeks
+        </div>
+        <h3>Syllabus</h3>
+        <ul>
+            <li>Data Analysis</li>
+            <li>Machine Learning</li>
+            <li>Data Visualization</li>
+        </ul>
+        <a href="#" class="pay-button" onclick="payNow('data-science')">Pay Now</a> <!-- Updated payment button -->
+    </section>
+
+    <!-- Graphic Design Section -->
+    <section id="graphic-design" class="course-section">
+        <h2>Graphic Design</h2>
+        <p>Master the fundamentals of visual design.<br>
+            This course introduces the principles of graphic design, focusing on visual communication, typography, and layout using tools like Adobe Illustrator and Photoshop.</p>
+        <img src="gd.png" alt="Graphic Design Course" style="width:10%; height:auto;">
+        <div class="course-info">
+            <span class="rating">★★★★☆</span> (4.3/5) <br>
+            Price: $249 <br>
+            Duration: 5 weeks
+        </div>
+        <h3>Syllabus</h3>
+        <ul>
+            <li>Design Principles</li>
+            <li>Typography</li>
+            <li>Color Theory</li>
+        </ul>
+        <a href="#" class="pay-button" onclick="payNow('graphic-design')">Pay Now</a> <!-- Updated payment button -->
+    </section>
+
+    <!-- Cyber Security Section -->
+    <section id="cyber-security" class="course-section">
+        <h2>Cyber Security</h2>
+        <p>Protect networks and systems from digital attacks.<br>
+            This course covers the essential concepts of cyber security. You will learn how to protect networks, prevent attacks, and secure sensitive data using modern tools and strategies.</p>
+        <img src="cs.png" alt="Cyber Security Course" style="width:10%; height:auto;">
+        <div class="course-info">
+            <span class="rating">★★★★☆</span> (4.6/5) <br>
+            Price: $349 <br>
+            Duration: 8 weeks
+        </div>
+        <h3>Syllabus</h3>
+        <ul>
+            <li>Cryptography</li>
+            <li>Ethical Hacking</li>
+        </ul>
+        <a href="#" class="pay-button" onclick="payNow('cyber-security')">Pay Now</a> <!-- Updated payment button -->
+    </section>
+
+    <!-- AI & ML Section -->
+    <section id="ai-ml" class="course-section">
+        <h2>AI & ML</h2>
+        <p>Explore Artificial Intelligence and Machine Learning.<br>
+            This course covers the basics of AI and ML, including algorithms, neural networks, and real-world applications in AI.</p>
+        <img src="aiml.png" alt="AI & ML Course" style="width:10%; height:auto;">
+        <div class="course-info">
+            <span class="rating">★★★★★</span> (5/5) <br>
+            Price: $499 <br>
+            Duration: 12 weeks
+        </div>
+        <h3>Syllabus</h3>
+        <ul>
+            <li>AI Fundamentals</li>
+            <li>Machine Learning Algorithms</li>
+            <li>Neural Networks</li>
+        </ul>
+        <a href="#" class="pay-button" onclick="payNow('ai-ml')">Pay Now</a> <!-- Updated payment button -->
+    </section>
+</div>
+
+<script>
+
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+
+    // Retrieve the email from the URL
+    const email = getQueryParam('email');
+    console.log("email:", email);
+
+    // Update the enroll link with email parameter
+    //document.querySelector('#myLink').href = `payment.html?email=${encodeURIComponent(email)}`;
+
+    // Function to dynamically add email to the payment link
+    function payNow(course) {
+        var paymentLink = "payment.html?course=" + course + "&email=" + encodeURIComponent(email);
+        console.log(paymentLink)
+        window.location.href = paymentLink; // Redirect to the payment page with the course and email in URL
+    }
+</script>
+
+</body>
+</html>

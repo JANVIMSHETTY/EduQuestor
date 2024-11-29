@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AI and Machine Learning Course</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Background and page setup */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('plainbg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Inria Serif', serif;
+            color: #333;
+        }
+
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .icon img {
+            height: 50px;
+            width: auto;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 3vw;
+            color: #2c3e50;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Course details */
+        .course-details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .course-details img {
+            width: 40%;
+            border-radius: 10px;
+            margin-right: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-info h2 {
+            font-size: 2.5vw;
+            color: #9b59b6;
+            margin-bottom: 10px;
+        }
+
+        .course-info p {
+            font-size: 1.2vw;
+            color: #7f8c8d;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        /* Pricing, Rating, and Duration */
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .stat {
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enroll button */
+        .enroll-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #27ae60; /* Green for enroll button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            margin: 20px auto; /* Center align button */
+            width: 60%; /* Button width */
+        }
+
+        .enroll-button:hover {
+            background-color: #219150; /* Darker green on hover */
+        }
+
+        /* Learn More link */
+        .learn-more {
+            display: block;
+            font-size: 1.2vw; /* Responsive font size */
+            color: #2980b9; /* Blue for learn more link */
+            text-decoration: underline;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+            text-align: center; /* Center the link */
+        }
+
+        .learn-more:hover {
+            color: #1abc9c; /* Teal on hover */
+        }
+
+       .explore-link {
+            display: block; /* Make it a block element */
+            font-size: 18px; /* Adjust font size to a smaller size */
+            margin-top: 5px; /* Space between texts */
+            color: black; /* Change the color to black */
+            text-decoration: underline; /* Underline for emphasis */
+            cursor: pointer; /* Change cursor on hover */
+        }
+
+        .explore-link:hover {
+            color: red; /* Change color to red on hover */
+        }
+
+        /* Image container styling */
+        .image-container {
+            display: flex; /* Use flexbox to align images in a row */
+            justify-content: center; /* Center images */
+            margin-top: 20px; /* Space above the image container */
+            width: 100%; /* Full width for the container */
+        }
+
+        .image-container div {
+            text-align: center; /* Center align text under images */
+            margin: 0 20px; /* Add margin between image blocks */
+        }
+
+        .image-container img {
+            width: 50px; /* Adjust the size of the images */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 5px; /* Space between image and link */
+        }
+		
+		/* Enroll button */
+        .enroll-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #27ae60; /* Green for enroll button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2vw;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            margin: 20px auto; /* Center align button */
+            width: 60%; /* Button width */
+        }
+
+        .enroll-button:hover {
+            background-color: #219150; /* Darker green on hover */
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Logo in the top-left corner -->
+    <div class="icon">
+        <img src="icon.png" alt="Logo">
+    </div>
+
+    <div class="container">
+        <!-- Page header -->
+        <div class="header">
+            <h1>AI and Machine Learning Course</h1>
+        </div>
+
+        <!-- Course details -->
+        <div class="course-details">
+            <img src="ai.jpeg" alt="AI and Machine Learning Course">
+            <div class="course-info">
+                <h2>Course Description</h2>
+                <p>This course covers the fundamentals of Artificial Intelligence and Machine Learning. You will learn about algorithms, data analysis, neural networks, and real-world applications of AI in various industries.</p>
+
+                <div class="course-stats">
+                    <div class="stat">Price: $249</div>
+                    <div class="stat">Rating: ★★★★★</div>
+                    <div class="stat">Duration: 10 weeks</div>
+                </div>
+			    <a class="learn-more" href="aiml-details.html">Learn More</a> <!-- Learn More link -->
+				<a href="payment.html" class="enroll-button">PAY</a>
+
+
+            </div>
+        </div>
+
+        
+    </div>
+
+</body>
+</html>
